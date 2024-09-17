@@ -1,0 +1,29 @@
+/*アイコンエリア*/
+#f_logoArea {
+  text-align: center;
+  padding-top: 50px;
+}
+#fl_logo {
+  display: flex;
+  margin: 0 auto;
+  gap: 15px;
+  width: fit-content;
+}
+#fll_icon img {
+  width: 50px;
+  height: 50px;
+}
+#fll_string * {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#fll_string p {
+  font-size: 13px;
+}
+#fll_string h2 {
+  font-size: 30px;
+  font-family: "游明朝", YuMincho, "Hiragino Mincho ProN", "HGS明朝E",
+    "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+  line-height: 35px;
+}
