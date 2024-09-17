@@ -1,0 +1,25 @@
+#top {
+  min-height: 100vh;
+  padding-top: 1px;
+  box-sizing: border-box;
+}
+#title_area {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+#title {
+  font-weight: normal;
+  font-size: 70px;
+}
+#catchcopy {
+  font-weight: normal;
+  line-height: 2.5em;
+  font-size: 25px;
+}
+#footer {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}

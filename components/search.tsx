@@ -13,41 +13,39 @@ const categoryOption = [
 export default function Search() {
   return (
     <div id={styles.search}>
-      <div id={styles.position}>
-        <p>中心地点が設定されていません</p>
-        <button>地図から</button>
-        <button>現在地から</button>
-      </div>
-      <div id={styles.distance}>
-        <p>何kmくらいがよいか</p>
-        <div>
-          <input type="number" />
-          <p>~</p>
-          <input type="number" />
-        </div>
-      </div>
-      <div id={styles.category}>
-        <div>
-          <input
-            type="checkbox"
-            name="distance"
-            id={`distance_option_すべて`}
-          />
-          <label htmlFor="distance_option_すべて">すべて</label>
-        </div>
-        {categoryOption.map((category) => (
-          <div key={category}>
+      <div id={styles.search_area}>
+        <div id={styles.search_box}>
+          <div id={styles.position}>
             <input
-              type="checkbox"
-              name="distance"
-              id={`distance_option_${category}`}
+              type="text"
+              id={styles.position_input}
+              placeholder="場所を入力 - 例：安芸津"
             />
-            <label htmlFor={`distance_option_${category}`}>{category}</label>
+            <button id={styles.from_now_position}>現在地</button>
           </div>
-        ))}
-      </div>
-      <div>
-        <button>ランダム！</button>
+          <div id={styles.distance_input}>
+            <label>
+              <input type="number" placeholder="5" />
+              km
+            </label>
+            <p>〜</p>
+            <label>
+              <input type="number" placeholder="20" />
+              km
+            </label>
+          </div>
+          <div id={styles.category}>
+            <select id={styles.category_select}>
+              <option value="すべて">すべてのカテゴリ</option>
+              {categoryOption.map((category) => (
+                <option value={category} key={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <button id={styles.random}>ランダム！</button>
       </div>
     </div>
   );

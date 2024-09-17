@@ -1,0 +1,41 @@
+:root {
+  --background-color: rgb(240, 255, 250);
+  --font-color: rgb(0, 32, 22);
+  --accent-color: rgb(156, 255, 222);
+  --hover-accent-color: rgb(131, 255, 214);
+  --active-accent-color: rgb(72, 255, 194);
+  --white: white;
+}
+
+body {
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+p {
+  color: var(--font-color);
+}
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  background-color: var(--accent-color);
+  border: none;
+  outline: none;
+  padding: 10px 30px;
+  margin: 15px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+button:hover {
+  background-color: var(--hover-accent-color);
+}
+button:active {
+  background-color: var(--active-accent-color);
+}
