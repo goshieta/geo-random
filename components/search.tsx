@@ -18,7 +18,7 @@ export default function Search() {
   ) => setFormData({ ...formData, [name]: data });
 
   const handleRandom = () => {
-    console.log(formData);
+    // リダイレクトする
   };
 
   return (
