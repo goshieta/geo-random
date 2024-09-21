@@ -1,11 +1,14 @@
 "use client";
 
 import styles from "@/styles/top/search.module.css";
-import { useState } from "react";
 
-export default function DistanceInput() {
-  const [distanceData, setDistanceData] = useState({ min: "", max: "" });
-
+export default function DistanceInput({
+  distanceData,
+  setDistanceData,
+}: {
+  distanceData: { min: string; max: string };
+  setDistanceData: (val: { min: string; max: string }) => void;
+}) {
   return (
     <div id={styles.distance_input}>
       <label>

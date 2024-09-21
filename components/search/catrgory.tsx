@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "@/styles/top/search.module.css";
-import { useState } from "react";
 
 const categoryOption = [
   "公園",
@@ -11,9 +10,13 @@ const categoryOption = [
   "寺社",
 ];
 
-export default function Category() {
-  const [categoryValue, setCategoryValue] = useState<string>("すべて");
-
+export default function Category({
+  categoryValue,
+  setCategoryValue,
+}: {
+  categoryValue: string;
+  setCategoryValue: (val: string) => void;
+}) {
   return (
     <div id={styles.category}>
       <select

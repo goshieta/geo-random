@@ -1,11 +1,12 @@
-"use client";
-
 import styles from "@/styles/top/search.module.css";
-import { useState } from "react";
 
-export default function Postion() {
-  const [locate, setLocate] = useState("");
-
+export default function Postion({
+  locate,
+  setLocate,
+}: {
+  locate: string;
+  setLocate: (val: string) => void;
+}) {
   return (
     <div id={styles.position}>
       <input
