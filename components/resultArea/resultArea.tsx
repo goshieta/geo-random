@@ -1,9 +1,9 @@
 import getRandomPosition from "@/lib/getRandomPosition";
 import styles from "@/styles/result/result.module.css";
+import RandomMap from "./map";
 
 export default async function ResultArea() {
   const data = await getRandomPosition();
-  console.log(data);
   let name = "名称のない公園";
   if (data.tags && data.tags.name) {
     name = data.tags.name;
@@ -17,6 +17,7 @@ export default async function ResultArea() {
       >
         google mapでアクセス
       </a>
+      <RandomMap lat={data.lat} lon={data.lon} />
     </div>
   );
 }
