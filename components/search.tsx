@@ -5,12 +5,20 @@ import Postion from "./search/position";
 import DistanceInput from "./search/distance";
 import Category from "./search/catrgory";
 import { useState } from "react";
+import { formattedSearchParamsType } from "@/lib/allType";
 
-export default function Search() {
+export default function Search({
+  searchParams,
+}: {
+  searchParams: formattedSearchParamsType;
+}) {
   const [formData, setFormData] = useState({
-    position: "",
-    distance: { min: "", max: "" },
-    category: "すべて",
+    position: searchParams.position,
+    distance: {
+      min: searchParams.min.toString(),
+      max: searchParams.max.toString(),
+    },
+    category: searchParams.category,
   });
   const handleSetFormData = (
     name: string,
