@@ -6,27 +6,33 @@ import DistanceInput from "./search/distance";
 import Category from "./search/catrgory";
 import { useState } from "react";
 import { formattedSearchParamsType } from "@/lib/allType";
+import { useRouter } from "next/navigation";
 
 export default function Search({
   searchParams,
 }: {
-  searchParams: formattedSearchParamsType;
+  searchParams?: formattedSearchParamsType;
 }) {
   const [formData, setFormData] = useState({
-    position: searchParams.position,
+    position: searchParams ? searchParams.position : "",
     distance: {
-      min: searchParams.min.toString(),
-      max: searchParams.max.toString(),
+      min: searchParams ? Math.floor(searchParams.min / 1000).toString() : "",
+      max: searchParams ? Math.floor(searchParams.max / 1000).toString() : "",
     },
-    category: searchParams.category,
+    category: searchParams ? searchParams.category : "すべて",
   });
   const handleSetFormData = (
     name: string,
     data: string | { min: string; max: string }
   ) => setFormData({ ...formData, [name]: data });
 
+  const router = useRouter();
+
   const handleRandom = () => {
     // リダイレクトする
+    router.push(
+      `/result?position=${formData.position}&min=${formData.distance.min}&max=${formData.distance.max}&category=${formData.category}`
+    );
   };
 
   return (

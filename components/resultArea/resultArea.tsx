@@ -15,16 +15,15 @@ export default async function ResultArea({
 }) {
   const data = await getRandomPosition(searchParams);
 
-  if (data === undefined) {
+  if (data.error) {
     return (
       <div id={styles.result}>
-        <h1>結果を取得できませんでした</h1>
-        <p>場所を変えたり、範囲を広くしてもう一回試してみてください。</p>
-        <p>何もない場所で、ランダムに選ぼうとしても選べません。</p>
+        <h1>{data.messageTitle}</h1>
+        <p>{data.message}</p>
       </div>
     );
   } else {
-    let name = "名称不明の公園";
+    let name = "名称不明";
     if (data.tags && data.tags.name) {
       name = data.tags.name;
     }

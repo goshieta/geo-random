@@ -2,13 +2,7 @@
 
 import styles from "@/styles/top/search.module.css";
 
-const categoryOption = [
-  "公園",
-  "観光スポット",
-  "史跡",
-  "なんでもないところ",
-  "寺社",
-];
+const categoryOption = ["公園", "観光スポット", "史跡", "寺社"];
 
 export default function Category({
   categoryValue,

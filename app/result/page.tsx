@@ -16,8 +16,8 @@ export default async function Result({
 }) {
   const formatedSearchParams = {
     position: searchParams?.position ? searchParams.position : "安芸津",
-    min: Number(searchParams?.min ? searchParams.min : 5),
-    max: Number(searchParams?.max ? searchParams.max : 20),
+    min: Number(searchParams?.min ? searchParams.min : 5) * 1000, //mに単位を直す
+    max: Number(searchParams?.max ? searchParams.max : 20) * 1000, //mに単位を直す
     category: searchParams?.category ? searchParams.category : "すべて",
   };
   return (
