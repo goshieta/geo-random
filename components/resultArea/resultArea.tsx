@@ -1,6 +1,10 @@
 import getRandomPosition from "@/lib/getRandomPosition";
 import styles from "@/styles/result/result.module.css";
-import RandomMap from "./map";
+import dynamic from "next/dynamic";
+
+const RandomMap = dynamic(() => import("@/components/resultArea/map"), {
+  ssr: false,
+});
 
 export default async function ResultArea() {
   const data = await getRandomPosition();
