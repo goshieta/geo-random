@@ -2,11 +2,12 @@ import { formattedSearchParamsType } from "@/lib/allType";
 import getRandomPosition from "@/lib/getRandomPosition";
 import styles from "@/styles/result/result.module.css";
 import dynamic from "next/dynamic";
-import { ReactNode } from "react";
+import InsertLink from "./insertLink";
 
 const RandomMap = dynamic(() => import("@/components/resultArea/map"), {
   ssr: false,
 });
+const AppleLink = dynamic(() => import("./appleLink"), { ssr: false });
 
 export default async function ResultArea({
   searchParams,
@@ -46,6 +47,7 @@ export default async function ResultArea({
           >
             Yahoo!地図
           </InsertLink>
+          <AppleLink lat={data.lat} lon={data.lon} />
           {data.tags && data.tags.wikipedia && (
             <InsertLink
               href={`https://ja.wikipedia.org/wiki/${data.tags.wikipedia}`}
@@ -58,21 +60,4 @@ export default async function ResultArea({
       </div>
     );
   }
-}
-
-function InsertLink({
-  href,
-  imgSrc,
-  children,
-}: {
-  href: string;
-  imgSrc: string;
-  children: ReactNode;
-}) {
-  return (
-    <button className={styles.open_link}>
-      <img src={imgSrc} alt={children?.toString()} width={32} height={32} />
-      <p>{children}</p>
-    </button>
-  );
 }
