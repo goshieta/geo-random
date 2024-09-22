@@ -21,7 +21,12 @@ export default async function ResultArea() {
       >
         google mapでアクセス
       </a>
-      <RandomMap lat={data.lat} lon={data.lon} />
+      <a
+        href={`https://map.yahoo.co.jp/place?&lat=${data.lat}1&lon=${data.lon}`}
+      >
+        Yahoo地図でアクセス
+      </a>
+      <RandomMap lat={data.lat} lon={data.lon} name={name} />
     </div>
   );
 }
