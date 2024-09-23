@@ -14,7 +14,7 @@ export default async function getRandomPosition(
       error: true,
       messageTitle: `${searchParams.position}がどこか分かりません`,
       message:
-        "地図データにこの場所は登録されていないようです。その他の近くにある建物名を入力するか、「34.318070,132.818173」のように座標で入力してください。",
+        "地図データにこの場所は登録されていないようです。\nその他の近くにある建物名を入力するか、「34.318070,132.818173」のように座標で入力してください。\nまた地図から中心地点を検索することもできます。",
     };
   const position = [positionJSON.lat, positionJSON.lon];
   //クエリを作成
@@ -65,15 +65,37 @@ export default async function getRandomPosition(
   `;
   //検索
   const url = "https://overpass-api.de/api/interpreter?data=" + query;
-  const result: any = await fetch(url);
-  const json = JSON.parse(await result.text());
+  const result: any = await fetch(url).catch((reason) => {
+    return {
+      text: async () =>
+        `<<<サーバー上で通信エラーが発生しました。>>>\n${reason}`,
+    };
+  });
+  let json: any = {};
+  const resultTxt = await result.text();
+  try {
+    json = JSON.parse(resultTxt);
+  } catch {
+    return {
+      error: true,
+      messageTitle: "例外が発生しました",
+      message: `何らかの原因により予期しない例外が発生しました。以下はエラーメッセージです。良ければエラーメッセージと一緒に開発者に報告してください。\n${resultTxt}`,
+    };
+  }
+  if (json.remark) {
+    return {
+      error: true,
+      messageTitle: "サーバーからエラーが返されました",
+      message: `対象の施設が多すぎると考えられます。\n範囲をもっと狭くするか、カテゴリを変えてみてください。例えば、観光スポットだったら公園よりは数が少ないかもしれません。\n以下はサーバーから返されたエラーです。\n${json.remark}`,
+    };
+  }
   const elements = json.elements;
-  console.log(elements);
   if (elements.length === 0)
     return {
       error: true,
       messageTitle: "施設が見つかりません",
-      message: `${searchParams.position}の近くに、「${searchParams.category}」に該当する施設は存在しないようです。もっと広い範囲で「ランダム！」するか、中心地点を変更してください。`,
+      message: `${searchParams.position}の近くに、「${searchParams.category}」に該当する施設は存在しないようです。\nもっと広い範囲で「ランダム！」するか、中心地点を変更してください。`,
     };
+  console.log(elements.length);
   return elements[Math.floor(Math.random() * elements.length)];
 }

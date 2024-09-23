@@ -6,7 +6,6 @@ import DistanceInput from "./search/distance";
 import Category from "./search/catrgory";
 import { useState } from "react";
 import { formattedSearchParamsType } from "@/lib/allType";
-import { useRouter } from "next/navigation";
 
 export default function Search({
   searchParams,
@@ -26,11 +25,9 @@ export default function Search({
     data: string | { min: string; max: string }
   ) => setFormData({ ...formData, [name]: data });
 
-  const router = useRouter();
-
   const handleRandom = () => {
     // リダイレクトする
-    router.push(
+    window.location.assign(
       `/result?position=${formData.position}&min=${formData.distance.min}&max=${formData.distance.max}&category=${formData.category}`
     );
   };
