@@ -5,7 +5,7 @@ import getRandomPosition from "@/lib/getRandomPosition";
 import styles from "@/styles/result/result.module.css";
 import dynamic from "next/dynamic";
 import InsertLink from "./insertLink";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ResultLoading from "./loading";
 import ResultError from "./error";
 
@@ -20,8 +20,11 @@ export default function ResultArea({
   searchParams: formattedSearchParamsType;
 }) {
   const [data, setData] = useState<any | null>(null);
+  const alreadyRead = useRef(false);
 
   useEffect(() => {
+    if (alreadyRead.current) return;
+    alreadyRead.current = true;
     getRandomPosition(searchParams).then((data) => setData(data));
   }, []);
 
