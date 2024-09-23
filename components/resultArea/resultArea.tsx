@@ -1,30 +1,34 @@
+"use client";
+
 import { formattedSearchParamsType } from "@/lib/allType";
 import getRandomPosition from "@/lib/getRandomPosition";
 import styles from "@/styles/result/result.module.css";
 import dynamic from "next/dynamic";
 import InsertLink from "./insertLink";
+import { useEffect, useState } from "react";
+import ResultLoading from "./loading";
+import ResultError from "./error";
 
 const RandomMap = dynamic(() => import("@/components/resultArea/map"), {
   ssr: false,
 });
 const AppleLink = dynamic(() => import("./appleLink"), { ssr: false });
 
-export default async function ResultArea({
+export default function ResultArea({
   searchParams,
 }: {
   searchParams: formattedSearchParamsType;
 }) {
-  const data = await getRandomPosition(searchParams);
+  const [data, setData] = useState<any | null>(null);
 
-  if (data.error) {
-    return (
-      <div id={styles.result}>
-        <h1>{data.messageTitle}</h1>
-        {(data.message as string).split(`\n`).map((mes) => {
-          return <p key={mes}>{mes}</p>;
-        })}
-      </div>
-    );
+  useEffect(() => {
+    getRandomPosition(searchParams).then((data) => setData(data));
+  }, []);
+
+  if (data === null) {
+    return <ResultLoading />;
+  } else if (data.error) {
+    return <ResultError data={data} />;
   } else {
     let name = "名称不明";
     if (data.tags && data.tags.name) {

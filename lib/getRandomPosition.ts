@@ -1,3 +1,5 @@
+"use server";
+
 import { formattedSearchParamsType } from "./allType";
 
 export default async function getRandomPosition(
