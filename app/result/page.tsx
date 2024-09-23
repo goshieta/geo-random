@@ -9,12 +9,11 @@ type searchParamsType = {
   category?: string;
 };
 
-export default async function Result({
+export default function Result({
   searchParams,
 }: {
   searchParams?: searchParamsType;
 }) {
-  console.log("loaded");
   const formatedSearchParams = {
     position: searchParams?.position ? searchParams.position : "安芸津",
     min: Number(searchParams?.min ? searchParams.min : 5) * 1000, //mに単位を直す

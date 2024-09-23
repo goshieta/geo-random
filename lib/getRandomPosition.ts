@@ -96,6 +96,5 @@ export default async function getRandomPosition(
       messageTitle: "施設が見つかりません",
       message: `${searchParams.position}の近くに、「${searchParams.category}」に該当する施設は存在しないようです。\nもっと広い範囲で「ランダム！」するか、中心地点を変更してください。`,
     };
-  console.log(elements.length);
   return elements[Math.floor(Math.random() * elements.length)];
 }
