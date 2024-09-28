@@ -31,9 +31,10 @@
   height: 100%;
   background-color: inherit;
 }
-#from_now_position {
+.location_button {
   margin: 0;
   padding: 5px 10px;
+  margin-left: 5px;
 }
 #distance_input {
   display: flex;
@@ -71,4 +72,26 @@
   margin: 0;
   border-radius: 9999px;
   border: solid 1px var(--font-color);
+}
+
+#map_dialog_shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+#map_dialog {
+  background-color: var(--background-color);
+  border-radius: 5px;
+}
+#dialog_menu {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
