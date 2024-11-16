@@ -13,6 +13,7 @@ let DefaultIcon = L.icon({
   iconUrl: "/marker-icon.png",
   iconSize: [48, 48],
   iconAnchor: [24, 48],
+  popupAnchor: [0, -48],
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -34,7 +35,7 @@ export default function RandomMap({
       <MapContainer center={position} zoom={16}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={position}>
           <Popup>{name}</Popup>

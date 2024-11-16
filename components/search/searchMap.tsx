@@ -24,6 +24,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 export default function SearchMap(args: {
   position: LatLng | null;
   setPosition: (val: LatLng | null) => void;
+  onMap: boolean;
 }) {
   return (
     <MapContainer
@@ -33,7 +34,7 @@ export default function SearchMap(args: {
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <CenterMarker {...args} />
     </MapContainer>
@@ -43,21 +44,34 @@ export default function SearchMap(args: {
 const CenterMarker = ({
   position,
   setPosition,
+  onMap,
 }: {
   position: LatLng | null;
   setPosition: (val: LatLng | null) => void;
+  onMap: boolean;
 }) => {
   const map = useMap();
 
   useMapEvents({
     move() {
-      setPosition(map.getCenter());
+      const center = map.getCenter();
+      setPosition(center);
     },
   });
 
   useEffect(() => {
-    setPosition(map.getCenter());
+    const center = map.getCenter();
+    setPosition(center);
   }, [map]);
 
-  return position === null ? null : <Marker position={position}></Marker>;
+  useEffect(() => {
+    if (onMap) {
+      if (map) {
+        map.invalidateSize();
+      }
+    }
+  }, [onMap]);
+
+  // マーカーを常に地図の中心に表示
+  return <Marker position={position || map.getCenter()}></Marker>;
 };

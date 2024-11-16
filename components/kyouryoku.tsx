@@ -17,7 +17,7 @@ export default function KyouRyoku() {
           <h2>峡緑</h2>
         </div>
       </div>
-      <p id={styles.copy}>©2024 KyouRyoku</p>
+      <p id={styles.copy}>©2024 峡緑</p>
     </div>
   );
 }

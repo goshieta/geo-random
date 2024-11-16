@@ -23,7 +23,11 @@ export default function SearchFromMap({
       style={{ display: onMap ? "flex" : "none" }}
     >
       <div id={styles.map_dialog}>
-        <SearchMap position={position} setPosition={setPosition} />
+        <SearchMap
+          position={position}
+          setPosition={setPosition}
+          onMap={onMap}
+        />
         <div id={styles.dialog_menu}>
           <button onClick={() => setOnMap(false)}>キャンセル</button>
           <button
