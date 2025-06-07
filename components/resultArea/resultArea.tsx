@@ -8,6 +8,7 @@ import InsertLink from "./insertLink";
 import { useEffect, useRef, useState } from "react";
 import ResultLoading from "./loading";
 import ResultError from "./error";
+import Detail from "./detail";
 
 const RandomMap = dynamic(() => import("@/components/resultArea/map"), {
   ssr: false,
@@ -20,12 +21,16 @@ export default function ResultArea({
   searchParams: formattedSearchParamsType;
 }) {
   const [data, setData] = useState<any | null>(null);
+  const [position, setPosition] = useState<[number, number] | null>(null);
   const alreadyRead = useRef(false);
 
   useEffect(() => {
     if (alreadyRead.current) return;
     alreadyRead.current = true;
-    getRandomPosition(searchParams).then((data) => setData(data));
+    getRandomPosition(searchParams).then(({ result, position }) => {
+      setData(result);
+      setPosition(position ? position : null);
+    });
   }, []);
 
   if (data === null) {
@@ -33,16 +38,21 @@ export default function ResultArea({
   } else if (data.error) {
     return <ResultError data={data} />;
   } else {
-    let name:string|undefined = undefined;
+    let name: string | undefined = undefined;
     if (data.tags && data.tags.name) {
       name = data.tags.name;
     }
     return (
       <div id={styles.result}>
-        {name&&<h1>{name}</h1>}
+        {name && <h1>{name}</h1>}
         <div id={styles.map_area}>
-          <RandomMap lat={data.lat} lon={data.lon} name={name?name:"名称不明"} />
+          <RandomMap
+            lat={data.lat}
+            lon={data.lon}
+            name={name ? name : "名称不明"}
+          />
         </div>
+        <Detail data={data} position={position!} />
         <div id={styles.links}>
           <InsertLink
             href={`https://www.google.com/maps/place/${data.lat},${data.lon}`}

@@ -18,7 +18,10 @@ export default async function getRandomPosition(
       message:
         "地図データにこの場所は登録されていないようです。\nその他の近くにある建物名を入力するか、「34.318070,132.818173」のように座標で入力してください。\nまた地図から中心地点を検索することもできます。",
     };
-  const position = [positionJSON.lat, positionJSON.lon];
+  const position: [number, number] = [
+    positionJSON.lat as number,
+    positionJSON.lon as number,
+  ];
   //クエリを作成
   const categoryQuery: { [key: string]: string } = {
     公園: `["leisure"="park"]`,
@@ -88,7 +91,7 @@ export default async function getRandomPosition(
     return {
       error: true,
       messageTitle: "サーバーからエラーが返されました",
-      message: `対象の施設が多すぎると考えられます。\n範囲をもっと狭くするか、カテゴリを変えてみてください。例えば、観光スポットだったら公園よりは数が少ないかもしれません。\n以下はサーバーから返されたエラーです。\n${json.remark}`,
+      message: `対象の施設が多すぎると考えられます。\n範囲をもっと狭くするか、カテゴリを変えてみてください。\n以下はサーバーから返されたエラーです。\n${json.remark}`,
     };
   }
   const elements = json.elements;
@@ -98,5 +101,9 @@ export default async function getRandomPosition(
       messageTitle: "施設が見つかりません",
       message: `${searchParams.position}の近くに、「${searchParams.category}」に該当する施設は存在しないようです。\nもっと広い範囲で「ランダム！」するか、中心地点を変更してください。`,
     };
-  return elements[Math.floor(Math.random() * elements.length)];
+  return {
+    result: elements[Math.floor(Math.random() * elements.length)],
+    searchParams,
+    position,
+  };
 }
