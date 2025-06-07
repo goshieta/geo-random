@@ -33,15 +33,15 @@ export default function ResultArea({
   } else if (data.error) {
     return <ResultError data={data} />;
   } else {
-    let name = "名称不明";
+    let name:string|undefined = undefined;
     if (data.tags && data.tags.name) {
       name = data.tags.name;
     }
     return (
       <div id={styles.result}>
-        <h1>{name}</h1>
+        {name&&<h1>{name}</h1>}
         <div id={styles.map_area}>
-          <RandomMap lat={data.lat} lon={data.lon} name={name} />
+          <RandomMap lat={data.lat} lon={data.lon} name={name?name:"名称不明"} />
         </div>
         <div id={styles.links}>
           <InsertLink

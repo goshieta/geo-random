@@ -23,6 +23,7 @@ export default function Postion({
         placeholder="場所を入力 - 例：安芸津"
         value={locate}
         onChange={(e) => setLocate(e.target.value)}
+        autoComplete="off"
       />
       <button
         className={styles.location_button}
